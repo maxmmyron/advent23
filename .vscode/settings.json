@@ -1,0 +1,15 @@
+{
+  "cSpell.ignoreWords": [
+    "curr",
+    "println",
+    "rfind",
+    "usize"
+  ],
+  "editor.semanticTokenColorCustomizations": {
+    "rules": {
+      "*.mutable": {
+        "fontStyle": "" // set to empty string to disable underline, which is the default
+      }
+    }
+  }
+}
