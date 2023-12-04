@@ -1,6 +1,6 @@
 # Day 2
 
-## Part 2
+## Part 1
 
 ### Problem
 
