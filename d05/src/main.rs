@@ -6,6 +6,7 @@ fn main() {
 
     let seed_re = Regex::new(r"(\d+)").unwrap();
 
+    // parse seed
     let seeds = seed_re
         .captures_iter(input[0])
         .map(|x| x[1].parse::<i64>().unwrap())
@@ -39,6 +40,7 @@ fn main() {
 
     let mut min = i64::MAX;
 
+    // map seeds to destinations and store the minimum
     for seed in seeds {
         let mut curr_dest = seed;
 
