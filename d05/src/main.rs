@@ -1,6 +1,8 @@
 use regex::Regex;
 
 fn main() {
+    let time = std::time::Instant::now();
+
     let binding = std::fs::read_to_string("input.txt").unwrap();
     let input = binding.split("\n").collect::<Vec<&str>>();
 
@@ -41,26 +43,34 @@ fn main() {
     let mut min = i64::MAX;
 
     // map seeds to destinations and store the minimum
-    for seed in seeds {
-        let mut curr_dest = seed;
+    for idx in (0..seeds.len()).step_by(2) {
+        println!("crunching the numbers for seed pair {}", idx);
+        let start = seeds[idx];
+        let end = seeds[idx] + seeds[idx + 1] - 1;
 
-        for source_dest_map in &source_dest_maps {
-            for map in source_dest_map {
-                let source_start = map.1;
-                let source_end = map.1 + map.2 - 1;
-                let dest_start = map.0;
+        for seed in start..=end {
+            let mut curr_dest = seed;
 
-                if (curr_dest >= source_start) && (curr_dest <= source_end) {
-                    curr_dest = dest_start + (curr_dest - source_start);
-                    break;
+            for source_dest_map in &source_dest_maps {
+                for map in source_dest_map {
+                    let source_start = map.1;
+                    let source_end = map.1 + map.2 - 1;
+                    let dest_start = map.0;
+
+                    if (curr_dest >= source_start) && (curr_dest <= source_end) {
+                        curr_dest = dest_start + (curr_dest - source_start);
+                        break;
+                    }
                 }
             }
-        }
 
-        if curr_dest < min {
-            min = curr_dest;
+            if curr_dest < min {
+                min = curr_dest;
+            }
         }
     }
 
+    let elapsed_ms = time.elapsed().as_millis();
     println!("\n{}", min);
+    println!("\nElapsed: {} ms", elapsed_ms);
 }

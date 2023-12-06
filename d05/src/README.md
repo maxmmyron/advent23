@@ -541,6 +541,92 @@ raw parsing was a _lot_ faster! i was surprised to see how much of a different r
 
 ## Part 2: Problem
 
+_the seed map now corresponds to a series of seed ranges. a given range is composed of a starting number, and a range value. for example:_
+
+```
+seeds: 79 14 55 13
+```
+
+_there are two ranges here. one starts at seed 79, and goes to 92 (79, 80, 81, ..., 92). the other starts at 55 and goes to 67 (55, 56, 57, ..., 67). find the minimum location given the seed ranges_
+
 ## Part 2: Train of Thought
 
+let's start by blindly replacing our existing `for seed in seeds` loop with a custom one that calculates the range, and iterates through that. we'll use the `step_by()` iterator method to iterate through the range in increments of 2, since each seed range is composed of two numbers:
+
+```rust
+for idx in (0..seeds.len()).step_by(2) {
+  let start = seeds[idx];
+  let end = seeds[idx] + seeds[idx + 1] - 1;
+
+  for seed in start..end {
+    let mut curr_dest = seed;
+
+    // ...
+  }
+}
+```
+
+so, this works right off the bat with the sample input. however, it takes _forever_ to run with the actual input. we'll need to find a better way to do this.
+
+let's work with a seriously simplified example:
+
+```
+seeds: 2 4
+
+seed-to-location map:
+2 3 2
+```
+
+we can physically map this out:
+
+```
+mapping seeds: 2, 3, 4, 5
+
+0 -> 0
+1 -> 1
+2 -> 2
+3 -> 2
+4 -> 3
+5 -> 5
+6 -> 6
+```
+
+notice how we can split this mapping into three regions, where each region is a linear mapping. the first region starts at 0, goes for 3 numbers, and has a change of 0. the second region starts at 3, goes for 2 numbers, and has a change of -1. the third region starts at 5, goes for 2 numbers, and has a change of 0.
+
+```
+0 -> 0   3 -> 2   5 -> 5
+1 -> 1   4 -> 3   6 -> 6
+2 -> 2
+```
+
+our seed mapping is `[2, 3, 4, 5],` let's split into vectors based on the region the original number is in:
+
+```
+[2, 3, 4, 5] -> [[2], [3, 4], [5]]
+```
+
+we can then map each region to its final location:
+
+```
+[2] -> [2]
+[3, 4] -> [2, 3]
+[5] -> [5]
+```
+
+for each "seed region," no matter the mapping, the first number will have the lowest final mapping for that region. so, we can just take the first number from each region, and then find the lowest number from that list:
+
+```
+[2] -> [2]
+[3, 4] -> [3] (ignore 4) -> [2]
+[5] -> [5]
+```
+
+then, we can work with that final vector (in this case, `[2,2,5] -> [2,5]`), and move to the next mapping.
+
+i'm actually going to leave it here for now--it's pretty late. final's week is coming up and i unfortunately cannot solve AoC problems all day, every day.
+
+(i did get the answer by brute-forcing it... it look nearly 52 minutes.)
+
 ## Part 2: Implementation
+
+TBD!
