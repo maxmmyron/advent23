@@ -23,20 +23,20 @@ here's the plotting between the amount of time we hold down the button, and the 
 
 ![plotting between time spent pushing the button, and distance traveled](./ex_plot_scatter.png)
 
-that looks familiar... in fact, this scatter plot exactly matches a perfect quadratic. here's `x^2 + 7x` plotted over the same range:
+that looks familiar... in fact, this scatter plot exactly matches a perfect quadratic. here's $x^2 + 7x$ plotted over the same range:
 
 ![quadratic equation x^2 + 7x plotted over the original scatter plot](./ex_plot_quad.png)
 
-the best distance is 9mm, so let's plot a straight line across this quadratic at `y = 9`:
+the best distance is 9mm, so let's plot a straight line across this quadratic at $y = 9$:
 
 ![quadratic equation x^2 + 7x with y = 9 plotted against it](./ex_plot_lined.png)
 
-we can see that there are four points along the quadratic that are above `y = 9`; we can translate the entire quadratic down by `9` in order to isolate these above the x-axis.
+we can see that there are four points along the quadratic that are above $y = 9$; we can translate the entire quadratic down by `9` in order to isolate these above the x-axis.
 
-in other words, we'll have exactly four points between the two roots of the quadratic equation `x^2 + 7x - 9 = 0`.
+in other words, we'll have exactly four points between the two roots of the quadratic equation $x^2 + 7x - 9 = 0$.
 
 if we solve the quadratic using the quadratic formula, we get two values:
-`~5.303`, and `~1.697`. we're going to round the high and low roots of this quadratic to the `ceil()` and `floor()`, respectively. our new roots are 6 and 1. this expands the quadratic to the maximum size that only contains four points above the x-axis (i.e. x=2, x=3, x=4, x=5).
+`~5.303`, and `~1.697`. we're going to round the high and low roots of this quadratic to the `ceil()` and `floor()`, respectively. our new roots are 6 and 1. this expands the quadratic to the maximum size that only contains four points above the x-axis (i.e. $x=2$, $x=3$, $x=4$, $x=5$).
 
 finally, we take the difference between the high and low roots, and subtract 1:
 
@@ -47,7 +47,7 @@ high - low - 1 -> 6 - 1 - 1 -> 4
 with that, here's our game plan:
 
 1. parse the input into a vector of times and best distances
-2. for each time/distance pair, calculate the roots of the quadratic equation `-x^2 + time*x - distance = 0`
+2. for each time/distance pair, calculate the roots of the quadratic equation $-x^2 + \text{time}*x - \text{distance} = 0$
 3. `ceil()` and `floor()` the high and low roots, respectively, to simplify the quadratic roots to the minimum size that contains all winning points above the x-axis.
 4. take the difference between the high and low roots, and subtract 1.
 5. multiply the result into a running product.
