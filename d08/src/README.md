@@ -402,9 +402,15 @@ we can see that each search falls into a cycle! the first search cycles from `11
 
 so, the first search has an overall cycle of $2$. the second search has an overall cycle of $3$. once a search enters a cycle, it will continue to cycle. this cyclic behavior means we can find the least common multiple of the two cycles to find the number of steps it takes for both search to end at nodes ending in `Z` at the same time. this sounds like a stretch, but we can think of each search hitting a node that ends in `Z` as a multiple of the cycle length.
 
-so, the LCM of $2$ and $3$ is $6$, which does match up with our example!
+the LCM of $2$ and $3$ is $6$, which does match up with our example!
 
-so, we can first find the cycle length of each search (i.e. the number of steps it takes for a search to reach a node ending in `Z`). then, we can find the LCM of the cycle lengths, which should give us the smallest number of steps necessary to reach a node ending in `Z` for all searches.
+**as a disclaimer**, it feels like dumb luck that LCM works in this context, but I think it has something to do with any one cycle being perfectly aligned with all the others. There's great visual by [/u/BackloggedLife](https://old.reddit.com/r/adventofcode/comments/18did3d/2023_day_8_part_1_my_input_maze_plotted_using/):
+
+![Advent of Code Day 8 Part 2 cyclic graph visualzation](https://i.imgur.com/WPeUIdZ.png)
+
+It seems like quite a few people also [share my sentiment on LCM not feeling like the most intuitive solution](https://old.reddit.com/r/adventofcode/comments/18dfpub/2023_day_8_part_2_why_is_spoiler_correct/).
+
+we can first find the cycle length of each search (i.e. the number of steps it takes for a search to reach a node ending in `Z`). then, we can find the LCM of the cycle lengths, which should give us the smallest number of steps necessary to reach a node ending in `Z` for all searches.
 
 ## Part 2: Implementation
 
